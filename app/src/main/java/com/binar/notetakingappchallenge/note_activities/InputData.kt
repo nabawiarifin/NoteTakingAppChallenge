@@ -1,23 +1,36 @@
 package com.binar.notetakingappchallenge.note_activities
 
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
+import com.binar.notetakingappchallenge.MainActivity
 import com.binar.notetakingappchallenge.databinding.InputDataBinding
 import com.binar.notetakingappchallenge.note_data.Note
 import com.binar.notetakingappchallenge.note_data.NoteDatabase
+import com.binar.notetakingappchallenge.user_activities.login.Login
 
-class InputData : AppCompatActivity() {
+class InputDataFragment : DialogFragment() {
 
-    var noteDb: NoteDatabase? = null
     private lateinit var binding: InputDataBinding
 
-    override fun onCreate(savedInstanceState: Bundle?){
-        super.onCreate(savedInstanceState)
-        binding = InputDataBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment
+        binding = InputDataBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    var noteDb: NoteDatabase? = null
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        noteDb = NoteDatabase.getInstance(MainActivity())
         binding.btnInput.setOnClickListener {
             val objectNote = Note(
                 null,
@@ -27,15 +40,14 @@ class InputData : AppCompatActivity() {
 
             Thread(Runnable {
                 val result = noteDb?.noteDao()?.insertNote(objectNote)
-                runOnUiThread {
-                    if(result != 0.toLong()) {
-                        Toast.makeText(this@InputData,"Success adding ${objectNote.heading}", Toast.LENGTH_LONG).show()
-                    } else {
-                        Toast.makeText(this@InputData, "Failed adding ${objectNote.heading}", Toast.LENGTH_LONG).show()
-                    }
-                    finish()
+                if(result != 0.toLong()) {
+                    Toast.makeText(activity,"Success adding ${objectNote.heading}", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(activity, "Failed adding ${objectNote.heading}", Toast.LENGTH_LONG).show()
                 }
             }).start()
+
+
+            }
         }
     }
-}

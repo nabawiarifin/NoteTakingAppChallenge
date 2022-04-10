@@ -3,6 +3,7 @@ package com.binar.notetakingappchallenge.note_activities
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.binar.notetakingappchallenge.MainActivity
 import com.binar.notetakingappchallenge.databinding.EditDataBinding
 import com.binar.notetakingappchallenge.note_data.Note
 import com.binar.notetakingappchallenge.note_data.NoteDatabase
@@ -16,7 +17,7 @@ class EditData : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        mDb = NoteDatabase.getInstance(this)
+        mDb = NoteDatabase.getInstance(MainActivity())
 
         val objectNote = intent.getParcelableExtra<Note>("note")
 
