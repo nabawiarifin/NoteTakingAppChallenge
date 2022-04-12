@@ -67,4 +67,6 @@ class NoteAdapter(val listNote : List<Note>) : RecyclerView.Adapter<NoteAdapter.
             }
         }
     }
+
+
 }

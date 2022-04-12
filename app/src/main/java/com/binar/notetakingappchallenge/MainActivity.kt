@@ -10,6 +10,7 @@ import com.binar.notetakingappchallenge.databinding.ActivityMainBinding
 import com.binar.notetakingappchallenge.databinding.InputDataBinding
 import com.binar.notetakingappchallenge.note_activities.InputDataFragment
 import com.binar.notetakingappchallenge.note_data.NoteDatabase
+import com.binar.notetakingappchallenge.user_activities.login.Login as Login1
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,9 +41,10 @@ class MainActivity : AppCompatActivity() {
             val inputDataFragment = InputDataFragment()
             inputDataFragment.show(supportFragmentManager,"tag")
 
+        }
 
-
-
+        binding.tvLogout.setOnClickListener {
+            finish()
         }
 
     }

@@ -1,5 +1,7 @@
 package com.binar.notetakingappchallenge.note_activities
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import com.binar.notetakingappchallenge.databinding.InputDataBinding
 import com.binar.notetakingappchallenge.note_data.Note
 import com.binar.notetakingappchallenge.note_data.NoteDatabase
 import com.binar.notetakingappchallenge.user_activities.login.Login
+import java.util.concurrent.Executors
 
 class InputDataFragment : DialogFragment() {
 
@@ -40,14 +43,24 @@ class InputDataFragment : DialogFragment() {
 
             Thread(Runnable {
                 val result = noteDb?.noteDao()?.insertNote(objectNote)
-                if(result != 0.toLong()) {
+                activity?.runOnUiThread {
+                    if(result != 0.toLong()) {
                     Toast.makeText(activity,"Success adding ${objectNote.heading}", Toast.LENGTH_LONG).show()
+
                 } else {
                     Toast.makeText(activity, "Failed adding ${objectNote.heading}", Toast.LENGTH_LONG).show()
-                }
+                }}
             }).start()
 
 
-            }
+
         }
+
     }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+
+    }
+
+}

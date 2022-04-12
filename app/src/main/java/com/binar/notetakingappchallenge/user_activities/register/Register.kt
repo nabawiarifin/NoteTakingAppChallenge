@@ -1,12 +1,14 @@
 package com.binar.notetakingappchallenge.user_activities.register
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.binar.notetakingappchallenge.databinding.RegisterBinding
+import com.binar.notetakingappchallenge.user_activities.login.Login
 
 
 class Register : AppCompatActivity() {
@@ -36,6 +38,9 @@ class Register : AppCompatActivity() {
                 editor.putString("confirm_password", confirmPasswordValue)
                 editor.apply()
                 Toast.makeText(this, "User registered", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
 
             } else {
                 Toast.makeText(this, "The password confirmation does not match", Toast.LENGTH_SHORT)
